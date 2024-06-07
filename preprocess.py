@@ -26,3 +26,15 @@ EEGfiltered.save('EEGfiltered.fif')
 montage = mne.channels.make_standard_montage('standard_1020')
 rawEEG, montage(montage)
 rawEEG.plot()
+
+"""Importing necessary function for ICA"""
+from mne.preprocessing import ICA
+"""Creating ICA components"""
+ICAComponents = ICA(15)
+"""Fitting the data and plotting the components"""
+ICAComponents.fit(raw_EEG)
+ICAComponents.plot_components()
+"""Excluding artifact components"""
+ICAComponents.exclude =  [1,2]
+rawEEG_ICA = ICAComponents.apply(rawEEG)
+
